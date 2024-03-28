@@ -29,39 +29,16 @@
 
         else{
 
-            $existtable="SELECT * FROM `signup` where email='$user_email'";
-            $result=mysqli_query($conn,$existtable);
-            $no_of_exist_rows= mysqli_num_rows($result);
+            session_start();
 
-            if($no_of_exist_rows>0){
-                // echo '<div class="alert alert-danger" role="alert">
-                // Email is already exist please try another email!
-                // </div>
-                // ';
-                session_start();
+            $id =  $_SESSION['id'];
 
-               $id =  $_SESSION['id'];
-
-                // $sql="INSERT INTO `signup` (`name`, `email`,`password`) VALUES ('$username', '$user_email', '$user_password')";
-                $sql="UPDATE `signup` SET `name`='$username', `email`='$user_email',`password`='$user_password' WHERE id = $id";
-                $result=mysqli_query($conn,$sql);
-                echo '<div class="alert alert-info" role="alert">
-                                            Success fully update the profile|
-                                    </div>';
-                                    // header("location:login.php");
-                
-            }
-
-            else{
-
-                // $sql="INSERT INTO `signup` (`name`, `email`,`password`) VALUES ('$username', '$user_email', '$user_password')";
-                //     $result=mysqli_query($conn,$sql);
-                //     echo '<div class="alert alert-info" role="alert">
-                //                                 Success fully Signup!
-                //                         </div>';
-                //                         header("location:login.php");
-
-            }
+             // $sql="INSERT INTO `signup` (`name`, `email`,`password`) VALUES ('$username', '$user_email', '$user_password')";
+             $sql="UPDATE `signup` SET `name`='$username', `email`='$user_email',`password`='$user_password' WHERE id = $id";
+             $result=mysqli_query($conn,$sql);
+             echo '<div class="alert alert-info" role="alert">
+                                         Success fully update the profile|
+                                 </div>';
         }
 
         }
