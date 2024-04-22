@@ -9,7 +9,7 @@ $result = mysqli_query($conn,$sql);
 
 while($row = mysqli_fetch_assoc($result)){
 
-    $output[] = array($row['id'],$row['service_type'],$row['name'],$row['contact']);
+    $output[] = array($row['id'],$row['service_type'],$row['name'],$row['contact'],$row['service_name'],$row['email'],$row['message'],$row['created_at']);
 
 }
 

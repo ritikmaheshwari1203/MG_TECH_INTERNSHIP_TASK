@@ -1,4 +1,14 @@
+<?php
+session_start();
+if(isset($_SESSION['start']) && $_SESSION['start'] ==true){
+    $loggin=true;
+}
+else{
+    header("location:login.php");
+}
 
+// echo $_SESSION['start'];
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,11 +34,6 @@
         </li>
 
       </ul>
-      
-
-<a href="./pages/task_page.html"><button type="button" class="btn btn-primary me-2">
-  Notifications <span class="badge text-bg-secondary" id = "numnotification"></span>
-</button></a>
       <!-- <form class="d-flex" role="search"> -->
         <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
         <a href="./update_profile.php"><button class="btn btn-outline-success" type="button">Edit Profile</button></a> 
@@ -61,30 +66,10 @@
 </div>
 <div class="container">
   <h1 class="">
-
+    welcome back <?php  echo $_SESSION['name']; ?>
   </h1>
 
 </div>
-
-<script>
-
-
-window.onload =  function(){
-console.log("hello");
-fetch('php/count_notification.php').then(function(response){
-  return response.json()
-}).then(function(data){
-
-  let count = document.getElementById('numnotification')
-  count.innerText = data
-
-  console.log(data);
-})
-
-
-}
-
-</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
