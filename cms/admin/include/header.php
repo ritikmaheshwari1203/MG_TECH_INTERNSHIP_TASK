@@ -5,8 +5,8 @@
 					<a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
 					<a href="dashboard.php" class="b-brand">
 						<!-- ========   change your logo hear   ============ -->
-						
-						<strong>Mavitriq</strong>
+						<!-- <img src="https://mavitriqconsulting.com/wp-content/uploads/2022/02/WhatsApp_Image_2022-02-14_at_13.24.48-removebg-preview.png" style="width:70px; height:70px" alt="" srcset=""> -->
+						<strong>Mavitriq Consulting</strong>
 					</a>
 					<a href="#!" class="mob-toggler">
 						<i class="feather icon-more-vertical"></i>

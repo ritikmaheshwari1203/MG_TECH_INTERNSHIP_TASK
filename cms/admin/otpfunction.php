@@ -9,7 +9,7 @@
  use PHPMailer\PHPMailer\Exception;
 
  $otp_genrate=rand(10000,99999);
-function sendotp($email,$otp){
+function sendotp($email,$otp,$fullname){
     require('PHPMailer/src/PHPMailer.php');
     require('PHPMailer/src/SMTP.php');
     require('PHPMailer/src/Exception.php');
@@ -48,8 +48,16 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'The OTP for Verification is-'.$otp;
+    $mail->Subject = 'Login Credentials for Mavitriq Private Limited';
+    $emailContent = file_get_contents('email_template.html');
+        
+    // Replace placeholders with actual data
+    $emailContent = str_replace('[User Email]', $email, $emailContent);
+    $emailContent = str_replace('[User]', $fullname, $emailContent);
+    $emailContent = str_replace('[User Password]', $otp, $emailContent);
+
+    $mail->Body    = $emailContent;
+
     // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();

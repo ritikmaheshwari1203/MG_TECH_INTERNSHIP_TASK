@@ -49,7 +49,7 @@ while($row=mysqli_fetch_array($query))
 					
 
 					<?php
-					if(isset($_SESSION['super_admin'])&& ($_SESSION['super_admin']==True)){
+					if(isset($_SESSION['super_admin'])&& ($_SESSION['super_admin'])){
 
 									?>
 					<li class="nav-item">

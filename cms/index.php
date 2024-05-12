@@ -58,9 +58,9 @@
                            <a class="nav-link" href="admin/registration.php">Admin Regsitration</a>
                         </li> -->
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                            <a class="nav-link" href="admin/super_admin_login.php">Super Admin </a>
-                        </li>
+                        </li> -->
 
                         <!-- <li class="nav-item">
                            <a class="nav-link" href="admin/registration.php">Admin Regsitration test</a>

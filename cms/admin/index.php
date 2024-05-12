@@ -19,6 +19,7 @@ if($num>0)
 		echo "Password is valid!";
 		$_SESSION['alogin']=$_POST['username'];
 		$_SESSION['aid']=$num['id'];
+		$_SESSION['super_admin']=$num['super_admin'];
 		header("location:dashboard.php");
 	} else {
 		echo "<script>alert('Invalid password!');</script>";

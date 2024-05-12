@@ -121,11 +121,11 @@ while($row=mysqli_fetch_array($query))
                                             
                                         </tr>
 
-
-                                            </tr>
+                                            <!-- </tr> -->
 
 
 <tr>
+
 <td><b>Final Status</b></td>
                                             
                               <td colspan="5"> <?php $status=$row['status'];
@@ -139,9 +139,11 @@ while($row=mysqli_fetch_array($query))
                                          <?php elseif($status=='resolved'):?>
                                              <span class="badge badge-dark">Closed</span>
                                          <?php endif;?></td>
-                                            
+     
                                         </tr>
                                         <hr>
+
+           
 
 
 
@@ -162,15 +164,23 @@ while($rw=mysqli_fetch_array($ret))
 
 
 <tr>
-                                           
+<td>
+
+<select id="updateworkstatus" style="width:200px; height:37px; background-color:#1abc9c; color:white;cursor:pointer" class="  " >
+    <option selected value="NULL">Set Status</option>
+    <option value="pending">In process</option>
+    <option value="resolved">Closed</option>
+    <!-- <option value="3">Three</option> -->
+</select>
+</td>
                                             
                                             <td> 
                                             <?php if($row['status']=="closed"){
 
                                                 } else {?>
-<a href="javascript:void(0);" onClick="popUpWindow('updatecomplaint.php?cid=<?php echo htmlentities($row['id']);?>');" title="Update order">
-                                             <button type="button" class="btn btn-primary">Take Action</button></td>
-                                            </a><?php } ?></td>
+
+                                             <button type="button" class="btn btn-primary" onclick="updatestatus(<?php echo $row['id'];?>)">Take Action</button></td>
+                                            <?php } ?></td>
 
                                             
                                         </tr>
@@ -196,12 +206,56 @@ while($rw=mysqli_fetch_array($ret))
     </div>
 </section>
 
+<script>
+
+    function updatestatus(id){
+        console.log(id);
+        let updateworkstatus = document.getElementById("updateworkstatus")
+        console.log(updateworkstatus.value);
+
+        param = {
+                        'notification_id': id,
+                        'status':updateworkstatus.value
+                    }
+
+                    let Jsondata = JSON.stringify(param)
+
+                    obj = {
+                        method: 'post',
+                        header: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: Jsondata
+                    }
+
+                    if(updateworkstatus.value=="NULL"){
+
+                    }
+
+                    else{
+
+                        
+                        
+                        fetch("api/update_status.php",obj).then(function(response){
+                            return response.json()
+                        }).then(function(data){
+                            if(data){
+                                window.location.reload();
+                            }
+                            else{
+                                console.log(data);
+
+                            }
+                        })
+                    }
+                    }
+</script>
 
     <!-- Required Js -->
     <script src="assets/js/vendor-all.min.js"></script>
     <script src="assets/js/plugins/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
-
+                       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>                             
 
 
 

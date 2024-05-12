@@ -1,27 +1,48 @@
 <?php
 include('include/config.php');
 include('otpfunction.php');
+
+function generateRandomPassword($length = 10) {
+    // Characters to include in the password
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=';
+
+    // Length of the character list
+    $charLength = strlen($chars);
+
+    // Initialize the password variable
+    $password = '';
+
+    // Generate random characters until the password length is reached
+    for ($i = 0; $i < $length; $i++) {
+        $password .= $chars[rand(0, $charLength - 1)];
+    }
+
+    return $password;
+}
 error_reporting(0);
 if(isset($_POST['submit']))
 {
 	session_start();
 	
-	$_SESSION['fullname']=$_POST['fullname'];
-	$_SESSION['email']=$_POST['email'];
+	$fullname=$_POST['fullname'];
+	$email=$_POST['email'];
 	// password_hash($_POST['password'], PASSWORD_ARGON2I, ['memory_cost' => 2048, 'time_cost' => 4, 'threads' => 3]);
 
 	// $_SESSION['password']=md5($_POST['password']);
-	$_SESSION['password']=password_hash($_POST['password'], PASSWORD_ARGON2I);
-	$_SESSION['contactno']=$_POST['contactno'];
-	$_SESSION['status']=1;
-	$otp_genrate=rand(10000,99999);
+	// $password=password_hash($_POST['password'], PASSWORD_ARGON2I);
+	$contactno=$_POST['contactno'];
+	// $_SESSION['status']=1;
+	$randomPassword = generateRandomPassword(12);
 	
-	if(sendotp($_SESSION['email'],$otp_genrate)){
-		$temp = $_SESSION['email'];
-		$query=mysqli_query($con,"insert into otptable(email,otp) values('$temp',$otp_genrate)");
-		echo "in if";
-		header('location:email_verification.php');
+	if(sendotp($email,$randomPassword,$fullname)){
+		// $temp = $_SESSION['email'];
+		$password=password_hash($randomPassword, PASSWORD_ARGON2I);
+		$query=mysqli_query($con,"insert into admin(fullName,email,password,mobilenumber) values('$fullname','$email','$password','$contactno')");
+		// echo "in if";
+		// header('location:email_verification.php');
 		// echo "<script type='text/javascript'> document.location ='email_verification.php'; </script>";
+		header('location:manage-users.php');
+		echo "<script>alert('Registration successfull. Now You can login');</script>";
 	}
 	else{
 	echo "<script>alert('Please check your E-mail address!');</script>";
@@ -29,11 +50,10 @@ if(isset($_POST['submit']))
 
 	// $query=mysqli_query($con,"insert into users(fullName,userEmail,password,contactNo,status) values('$fullname','$email','$password','$contactno','$status')");
 	
-	// echo "<script>alert('Registration successfull. Now You can login');</script>";
 }
 
 else{
-	echo "in else";
+	// echo "in else";
 }
 ?>
 
@@ -86,11 +106,11 @@ error:function (){}
 							
 							<input type="text" class="form-control" maxlength="10" name="contactno" placeholder="Contact no" required="required" autofocus>
 						</div>
-						<div class="form-group mb-3">
+						<!-- <div class="form-group mb-3">
 							
 							<input type="password" class="form-control" placeholder="Password" required="required" name="password"><br >
-						</div>
-						<button class="btn btn-block btn-primary mb-4"  type="submit" name="submit">Send OTP</button>
+						</div> -->
+						<button class="btn btn-block btn-primary mb-4"  type="submit" name="submit">Register User</button>
 						<hr>
 						
 					</div></form>
